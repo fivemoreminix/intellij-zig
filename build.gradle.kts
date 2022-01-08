@@ -1,5 +1,5 @@
 group = "org.ziglang"
-version = "0.1.4"
+version = "0.1.4-SNAPSHOT"
 
 plugins {
 	java
@@ -51,16 +51,13 @@ tasks {
 
 	generateLexer {
 		// source flex file
-		source.set("grammar/zig-lexer.flex")
+		source.set("grammar/v1/zig-lexer.flex")
 
 		// target directory for lexer
-		targetDir.set("src/main/generated/org/ziglang")
+		targetDir.set("src/main/generated/org/ziglang/parsing/v1")
 
 		// target classname, target file will be targetDir/targetClass.java
 		targetClass.set("ZigLexer")
-
-		// optional, path to the task-specific skeleton file. Default: none
-//	skeleton.set("/some/specific/skeleton")
 
 		// if set, plugin will remove a lexer output file before generating new one. Default: false
 		purgeOldFiles.set(true)
@@ -68,16 +65,16 @@ tasks {
 
 	generateParser {
 		// source bnf file
-		source.set("grammar/zig-grammar.bnf")
+		source.set("grammar/v1/zig-grammar.bnf")
 
 		// optional, task-specific root for the generated files. Default: none
 		targetRoot.set("src/main/generated/")
 
 		// path to a parser file, relative to the targetRoot  
-		pathToParser.set("/org/ziglang/ZigParser.java")
+		pathToParser.set("/org/ziglang/parsing/v1/ZigParser.java")
 
 		// path to a directory with generated psi files, relative to the targetRoot 
-		pathToPsiRoot.set("org/ziglang/psi")
+		pathToPsiRoot.set("org/ziglang/parsing/v1/psi")
 
 		// if set, the plugin will remove a parser output file and psi output directory before generating new ones. Default: false
 		purgeOldFiles.set(true)

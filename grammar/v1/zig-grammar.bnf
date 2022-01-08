@@ -1,34 +1,35 @@
 {
-  parserClass='org.ziglang.ZigParser'
+  parserClass='org.ziglang.v1.ZigParser'
   extends='com.intellij.extapi.psi.ASTWrapperPsiElement'
   psiClassPrefix='Zig'
   psiImplClassSuffix='Impl'
-  psiPackage='org.ziglang.psi'
-  psiImplPackage='org.ziglang.psi.impl'
+  psiPackage='org.ziglang.parsing.v1.psi'
+  psiImplPackage='org.ziglang.parsing.v1.psi.impl'
 
   extends('.*Expr')=expr
 
-  tokenTypeClass='org.ziglang.ZigTokenType'
-  elementTypeHolderClass='org.ziglang.psi.ZigTypes'
-  elementTypeClass='org.ziglang.ZigElementType'
+  tokenTypeClass='org.ziglang.parsing.v1.ZigTokenType'
+  elementTypeHolderClass='org.ziglang.parsing.v1.psi.ZigTypes'
+  elementTypeClass='org.ziglang.parsing.v1.ZigElementType'
 }
 
 zigFile ::= topLevelItem*
 
 symbol ::= SYM {
 	extends=expr
-	implements=['org.ziglang.psi.impl.IZigSymbol']
-	mixin='org.ziglang.psi.impl.ZigSymbolMixin'
+	implements=['org.ziglang.parsing.v1.psi.impl.IZigSymbol']
+	mixin='org.ziglang.parsing.v1.psi.impl.ZigSymbolMixin'
 }
 
-string ::= STR | RAW_STR {
+string ::= STR | RAW_STR | STR_MULTILINE {
 	extends=expr
 	implements=['com.intellij.psi.PsiLanguageInjectionHost']
-	mixin='org.ziglang.psi.impl.ZigStringMixin'
+	mixin='org.ziglang.parsing.v1.psi.impl.ZigStringMixin'
 }
 
 private topLevelItem ::=
    COMPTIME_KEYWORD block
+ | namespaceDeclaration
  | fnDeclaration
  | externDeclaration
  | globalVarDeclaration
@@ -38,7 +39,7 @@ private topLevelItem ::=
 
 testDeclaration ::= TEST_KEYWORD string block
 globalVarDeclaration ::=
- PUB_KEYWORD? EXPORT_KEYWORD?
+ PUB_KEYWORD? EXPORT_KEYWORD? THREADLOCAL_KEYWORD?
   variableDeclaration
  SEMICOLON_SYM
 
@@ -52,7 +53,7 @@ variableDeclaration ::=
  (SECTION_KEYWORD LEFT_PAREN expr RIGHT_PAREN)?
  (EQ_SYM expr)? {
 	implements=['com.intellij.psi.PsiNameIdentifierOwner']
-	mixin='org.ziglang.psi.impl.ZigVariableDeclarationMixin'
+	mixin='org.ziglang.parsing.v1.psi.impl.ZigVariableDeclarationMixin'
 }
 
 containerField ::= symbol (COLON_SYM primary)? (EQ_SYM expr)? COMMA_SYM
@@ -77,16 +78,16 @@ fnProto ::=
  | (ASYNC_KEYWORD (LEFT_PAREN expr RIGHT_PAREN)?)
  )?
  FN_KEYWORD symbol? parameterList (ALIGN_KEYWORD LEFT_PAREN expr RIGHT_PAREN)?
- (SECTION_KEYWORD LEFT_PAREN expr RIGHT_PAREN)? NOT_SYM? (typeExpr | VAR_KEYWORD) {
+ (SECTION_KEYWORD LEFT_PAREN expr RIGHT_PAREN)? LinkSection? CallConv? NOT_SYM? (typeExpr | VAR_KEYWORD) {
 	extends=expr
 	implements=['com.intellij.psi.PsiNameIdentifierOwner']
-	mixin='org.ziglang.psi.impl.TrivialDeclaration'
+	mixin='org.ziglang.parsing.v1.psi.impl.TrivialDeclaration'
 }
 
 fnDeclaration ::=
- PUB_KEYWORD? (INLINE_KEYWORD | EXPORT_KEYWORD)?
+ PUB_KEYWORD? ((INLINE_KEYWORD | NOINLINE_KEYWORD) | EXPORT_KEYWORD)?
   fnProto block {
-	mixin='org.ziglang.psi.impl.ZigFnDeclarationMixin'
+	mixin='org.ziglang.parsing.v1.psi.impl.ZigFnDeclarationMixin'
 }
 
 parameterList ::= LEFT_PAREN (paramDeclaration (COMMA_SYM paramDeclaration)*)? RIGHT_PAREN
@@ -94,9 +95,9 @@ parameterList ::= LEFT_PAREN (paramDeclaration (COMMA_SYM paramDeclaration)*)? R
 paramDeclaration ::=
  (NOALIAS_KEYWORD | COMPTIME_KEYWORD)?
  (symbol COLON_SYM)?
- (typeExpr | VAR_KEYWORD | RANGE_SYM) {
+ (typeExpr | VAR_KEYWORD | RANGE_SYM | ANYTYPE_KEYWORD) {
 	implements=['com.intellij.psi.PsiNameIdentifierOwner']
-	mixin='org.ziglang.psi.impl.ZigParamDeclarationMixin'
+	mixin='org.ziglang.parsing.v1.psi.impl.ZigParamDeclarationMixin'
 }
 
 statement ::=
@@ -111,7 +112,7 @@ statement ::=
 private exprOrBlock ::= block | expr
 
 block ::= (symbol COLON_SYM)? LEFT_BRACE statement* RIGHT_BRACE {
-	mixin='org.ziglang.psi.impl.ZigBlockMixin'
+	mixin='org.ziglang.parsing.v1.psi.impl.ZigBlockMixin'
 }
 
 asmOutput ::= COLON_SYM (asmOutputItem (COMMA_SYM asmOutputItem)*)? asmInput?
@@ -214,8 +215,8 @@ ifExprOrBlock ::=
  (ELSE_KEYWORD exprOrBlock)?
 
 //SuspendExpr(body) ::= "suspend" option((SEP_SYM symbol SEP_SYM body))
-suspendBlock ::= SUSPEND_KEYWORD (SEP_SYM symbol SEP_SYM block)?
-suspendExprOrBlock ::= SUSPEND_KEYWORD (SEP_SYM symbol SEP_SYM exprOrBlock)?
+suspendBlock ::= (SUSPEND_KEYWORD | NOSUSPEND_KEYWORD) (SEP_SYM symbol SEP_SYM block)?
+suspendExprOrBlock ::= (SUSPEND_KEYWORD | NOSUSPEND_KEYWORD) (SEP_SYM symbol SEP_SYM exprOrBlock)?
 
 //IfErrorExpr(body) ::= "if" LEFT_PAREN expr RIGHT_PAREN option(SEP_SYM STAR_SYM? symbol SEP_SYM) body "else" SEP_SYM symbol SEP_SYM BlockExpr(body)
 ifErrorBlock ::=
@@ -343,7 +344,7 @@ optionalSuffix ::= DOT_SYM QUESTION_SYM
 fnCallSuffix ::= LEFT_PAREN (expr (COMMA_SYM expr)*)? RIGHT_PAREN
 arrayAccessSuffix ::= LEFT_BRACKET expr RIGHT_BRACKET
 sliceSuffix ::= LEFT_BRACKET expr SLICE_SYM expr? RIGHT_BRACKET
-containerInitSuffix ::= LEFT_BRACE (containerInitBody COMMA_SYM?)? RIGHT_BRACE
+containerInitSuffix ::= (OPAQUE_KEYWORD)? LEFT_BRACE (containerInitBody COMMA_SYM?)? RIGHT_BRACE
 
 bitShiftOperator ::= SHL_SYM | SHR_SYM
 additionOperator ::= PLUS_SYM | MINUS_SYM | INC_SYM | PLUS_MOD_SYM | MINUS_MOD_SYM
@@ -370,12 +371,13 @@ prefixOp ::=
  | AND_SYM
  ( ALIGN_KEYWORD LEFT_PAREN
    expr (COLON_SYM integer COLON_SYM integer)? RIGHT_PAREN
- )? CONST_KEYWORD? VOLATILE_KEYWORD?
+ )? CONST_KEYWORD? VOLATILE_KEYWORD? ALLOWZERO_KEYWORD?
  | QUESTION_SYM
  | VERY_QUESTION_SYM
  | MINUS_MOD_SYM
  | TRY_KEYWORD
  | AWAIT_KEYWORD
+ | ANYFRAME_KEYWORD SMALL_ARROW_SYM
 
 asmExpr ::=
  ASM_KEYWORD VOLATILE_KEYWORD?
@@ -383,7 +385,7 @@ asmExpr ::=
 arrayExpr ::=
  LEFT_BRACKET expr? RIGHT_BRACKET
  (ALIGN_KEYWORD LEFT_PAREN expr (COLON_SYM integer COLON_SYM integer)? RIGHT_PAREN)?
- CONST_KEYWORD? VOLATILE_KEYWORD? typeExpr {
+ CONST_KEYWORD? VOLATILE_KEYWORD? ALLOWZERO_KEYWORD? typeExpr {
 	extends=expr
 }
 
@@ -418,3 +420,7 @@ containerExpr ::=
  )
  LEFT_BRACE containerMember* RIGHT_BRACE
 
+CallConv ::= CALLCONV_KEYWORD LEFT_PAREN expr RIGHT_PAREN
+LinkSection ::= LINKSECTION_KEYWORD LEFT_PAREN expr RIGHT_PAREN
+
+namespaceDeclaration ::= USINGNAMESPACE_KEYWORD expr

@@ -4,8 +4,8 @@ import com.intellij.psi.PsiComment
 import com.intellij.psi.PsiElement
 import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy
 import com.intellij.spellchecker.tokenizer.Tokenizer
-import org.ziglang.psi.ZigString
-import org.ziglang.psi.ZigSymbol
+import org.ziglang.parsing.v1.psi.ZigString
+import org.ziglang.parsing.v1.psi.ZigSymbol
 
 class ZigSpellcheckerStrategy : SpellcheckingStrategy() {
     override fun getTokenizer(element: PsiElement): Tokenizer<PsiElement> = when (element) {

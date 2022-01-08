@@ -1,21 +1,13 @@
-package org.ziglang
+package org.ziglang.parsing.v1
 
 import com.intellij.extapi.psi.PsiFileBase
-import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.ResolveState
 import com.intellij.psi.scope.PsiScopeProcessor
-import org.ziglang.i18n.ZigBundle
-import org.ziglang.icons.ZigIcons
-import org.ziglang.psi.ZigGlobalVarDeclaration
-
-object ZigFileType : LanguageFileType(ZigLanguage.INSTANCE) {
-    override fun getIcon() = ZigIcons.ZIG_FILE
-    override fun getName() = ZIG_NAME
-    override fun getDefaultExtension() = ZIG_EXTENSION
-    override fun getDescription() = ZigBundle.message("zig.description")
-}
+import org.ziglang.ZigLanguage
+import org.ziglang.parsing.ZigFileType
+import org.ziglang.parsing.v1.psi.ZigGlobalVarDeclaration
 
 class ZigFile(viewProvider: FileViewProvider) : PsiFileBase(viewProvider, ZigLanguage.INSTANCE) {
     override fun getFileType() = ZigFileType

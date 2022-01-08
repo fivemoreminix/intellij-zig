@@ -1,6 +1,7 @@
 package org.ziglang
 
 import com.intellij.testFramework.ParsingTestCase
+import org.ziglang.parsing.v1.ZigParserDefinition
 import kotlin.test.Test
 
 class ZigParserTests : ParsingTestCase("", ZIG_EXTENSION, ZigParserDefinition()) {
@@ -43,22 +44,22 @@ class ZigParserTests : ParsingTestCase("", ZIG_EXTENSION, ZigParserDefinition())
 		doTest(true)
 	}
 
-	fun testfloat_mode() {
+	fun testFloatMode() {
 		println(name)
 		doTest(true)
 	}
 
-	fun testfoo() {
+	fun testFoo() {
 		println(name)
 		doTest(true)
 	}
 
-	fun testarrays() {
+	fun testArrays() {
 		println(name)
 		doTest(true)
 	}
 
-	fun testvalues() {
+	fun testValues() {
 		println(name)
 		doTest(true)
 	}

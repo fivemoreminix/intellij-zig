@@ -7,8 +7,8 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.project.DumbAware
 import com.intellij.psi.PsiElement
 import com.intellij.psi.SyntaxTraverser
-import org.ziglang.psi.ZigBlock
-import org.ziglang.psi.ZigErrorSetExpr
+import org.ziglang.parsing.v1.psi.ZigBlock
+import org.ziglang.parsing.v1.psi.ZigErrorSetExpr
 
 class ZigFolderBuilder : FoldingBuilderEx(), DumbAware {
 

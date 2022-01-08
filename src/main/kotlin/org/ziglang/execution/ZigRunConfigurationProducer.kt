@@ -7,7 +7,7 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.openapi.actionSystem.CommonDataKeys.VIRTUAL_FILE
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
-import org.ziglang.ZigFileType
+import org.ziglang.parsing.ZigFileType
 import org.ziglang.project.validateZigExe
 import org.ziglang.util.trimPath
 

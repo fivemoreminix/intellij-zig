@@ -4,7 +4,7 @@ import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
 import org.ziglang.icons.ZigIcons
-import org.ziglang.ZigFileType
+import org.ziglang.parsing.ZigFileType
 
 /**
  * Copy from julia-intellij (>_<)

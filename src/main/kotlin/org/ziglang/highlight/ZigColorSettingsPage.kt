@@ -4,7 +4,7 @@ import com.intellij.openapi.options.colors.AttributesDescriptor
 import com.intellij.openapi.options.colors.ColorDescriptor
 import com.intellij.openapi.options.colors.ColorSettingsPage
 import org.ziglang.i18n.ZigBundle
-import org.ziglang.ZigFileType
+import org.ziglang.parsing.ZigFileType
 import org.ziglang.icons.ZigIcons
 
 class ZigColorSettingsPage : ColorSettingsPage {

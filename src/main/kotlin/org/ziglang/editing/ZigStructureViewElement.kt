@@ -6,10 +6,10 @@ import com.intellij.navigation.ItemPresentation
 import com.intellij.pom.Navigatable
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiNamedElement
-import org.ziglang.ZigFile
+import org.ziglang.parsing.v1.ZigFile
 import org.ziglang.icons.ZigIcons
-import org.ziglang.psi.ZigFnDeclaration
-import org.ziglang.psi.ZigGlobalVarDeclaration
+import org.ziglang.parsing.v1.psi.ZigFnDeclaration
+import org.ziglang.parsing.v1.psi.ZigGlobalVarDeclaration
 
 class ZigStructureViewElement(private val root: NavigatablePsiElement) :
     StructureViewTreeElement, ItemPresentation, SortableTreeElement, Navigatable by root {
@@ -21,7 +21,6 @@ class ZigStructureViewElement(private val root: NavigatablePsiElement) :
         else -> ZigIcons.ZIG_BIG_ICON
     }
 
-    //返回显示的字符串吧, 60应该是字符上限
     override fun getPresentableText() = cutText(root.presentText(), 60)
 
     override fun getPresentation() = this

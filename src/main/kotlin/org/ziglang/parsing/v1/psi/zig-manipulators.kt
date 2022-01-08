@@ -1,8 +1,8 @@
-package org.ziglang.psi
+package org.ziglang.parsing.v1.psi
 
 import com.intellij.openapi.util.TextRange
 import com.intellij.psi.AbstractElementManipulator
-import org.ziglang.ZigTokenType
+import org.ziglang.parsing.v1.ZigTokenType
 
 class ZigStringManipulator : AbstractElementManipulator<ZigString>() {
     override fun handleContentChange(psi: ZigString, range: TextRange, new: String): ZigString {

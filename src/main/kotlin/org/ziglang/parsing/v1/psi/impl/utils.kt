@@ -1,11 +1,11 @@
-package org.ziglang.psi.impl
+package org.ziglang.parsing.v1.psi.impl
 
 import com.intellij.psi.PsiElement
 import com.intellij.psi.SyntaxTraverser
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.util.PsiTreeUtil
-import org.ziglang.psi.ZigExpr
-import org.ziglang.psi.ZigSymbol
+import org.ziglang.parsing.v1.psi.ZigExpr
+import org.ziglang.parsing.v1.psi.ZigSymbol
 
 /**
  * @param self The declaration itself

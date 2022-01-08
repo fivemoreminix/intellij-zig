@@ -1,4 +1,4 @@
-package org.ziglang.psi
+package org.ziglang.parsing.v1.psi
 
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.openapi.util.Key
@@ -8,7 +8,7 @@ import com.intellij.psi.impl.source.resolve.ResolveCache
 import com.intellij.psi.scope.PsiScopeProcessor
 import com.intellij.psi.util.PsiTreeUtil
 import org.ziglang.icons.ZigIcons
-import org.ziglang.ZigTokenType
+import org.ziglang.parsing.v1.ZigTokenType
 
 /**
  * 今天就要成为吊打冰酱的人（超大雾

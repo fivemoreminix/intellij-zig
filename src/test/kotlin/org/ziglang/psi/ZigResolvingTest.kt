@@ -6,7 +6,7 @@ class ZigResolvingTest : BasePlatformTestCase() {
     override fun getTestDataPath() = "testData/resolving"
 
     fun testSimple() {
-        myFixture.configureByFiles("values.zig")
+        myFixture.configureByFiles("Values.zig")
         val reference = myFixture
             .file
             .findElementAt(myFixture.caretOffset)

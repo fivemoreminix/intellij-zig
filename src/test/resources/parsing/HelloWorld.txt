@@ -1,5 +1,5 @@
 FILE
-  Zig[GlobalVarDeclarationImpl(GLOBAL_VAR_DECLARATION)
+  ZigGlobalVarDeclarationImpl(GLOBAL_VAR_DECLARATION)
     ZigVariableDeclarationImpl(VARIABLE_DECLARATION)
       PsiElement(CONST_KEYWORD)('const')
       ZigSymbolImpl(SYMBOL)
@@ -53,4 +53,4 @@ FILE
                 PsiElement(RIGHT_BRACE)('}')
             PsiElement(RIGHT_PAREN)(')')
         PsiElement(SEMICOLON_SYM)(';')
-      PsiElement(RIGHT_BRACE)('}'])
+      PsiElement(RIGHT_BRACE)('}')

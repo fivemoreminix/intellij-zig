@@ -4,7 +4,7 @@ import com.intellij.execution.lineMarker.ExecutorAction
 import com.intellij.execution.lineMarker.RunLineMarkerContributor
 import com.intellij.icons.AllIcons
 import com.intellij.psi.PsiElement
-import org.ziglang.psi.ZigFnDeclaration
+import org.ziglang.parsing.v1.psi.ZigFnDeclaration
 
 class ZigRunLineMarkerContributor : RunLineMarkerContributor() {
     override fun getInfo(element: PsiElement): Info? {

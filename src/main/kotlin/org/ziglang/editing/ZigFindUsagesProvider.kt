@@ -5,8 +5,8 @@ import com.intellij.lang.findUsages.FindUsagesProvider
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiNameIdentifierOwner
 import com.intellij.psi.PsiNamedElement
-import org.ziglang.ZigLexerAdapter
-import org.ziglang.ZigTokenType
+import org.ziglang.parsing.v1.ZigLexerAdapter
+import org.ziglang.parsing.v1.ZigTokenType
 
 class ZigFindUsagesProvider : FindUsagesProvider {
     override fun canFindUsagesFor(element: PsiElement) = element is PsiNameIdentifierOwner

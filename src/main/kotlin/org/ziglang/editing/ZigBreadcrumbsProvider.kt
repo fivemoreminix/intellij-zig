@@ -4,7 +4,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.ui.breadcrumbs.BreadcrumbsProvider
 import org.ziglang.ZigLanguage
-import org.ziglang.psi.*
+import org.ziglang.parsing.v1.psi.*
 
 class ZigBreadcrumbsProvider : BreadcrumbsProvider {
     private fun ZigFnProto.text() = name?.let { "$it()" }

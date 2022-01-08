@@ -8,8 +8,8 @@ import com.intellij.psi.PsiElement
 import org.ziglang.i18n.ZigBundle
 import org.ziglang.highlight.ZigSyntaxHighlighter
 import org.ziglang.builtinFunctions
-import org.ziglang.psi.*
-import org.ziglang.psi.impl.firstExprOrNull
+import org.ziglang.parsing.v1.psi.*
+import org.ziglang.parsing.v1.psi.impl.firstExprOrNull
 import org.ziglang.util.subRange
 import java.util.regex.Pattern
 import kotlin.math.min

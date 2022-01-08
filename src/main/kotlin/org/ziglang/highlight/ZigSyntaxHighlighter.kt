@@ -5,9 +5,9 @@ import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighter
 import com.intellij.psi.tree.IElementType
-import org.ziglang.ZigLexerAdapter
-import org.ziglang.ZigTokenType
-import org.ziglang.psi.ZigTypes.*
+import org.ziglang.parsing.v1.ZigLexerAdapter
+import org.ziglang.parsing.v1.ZigTokenType
+import org.ziglang.parsing.v1.psi.ZigTypes.*
 
 object ZigSyntaxHighlighter : SyntaxHighlighter {
     @JvmField

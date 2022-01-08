@@ -1,8 +1,8 @@
 package org.ziglang.editing
 
 import com.intellij.psi.PsiElement
-import org.ziglang.ZigFile
-import org.ziglang.psi.*
+import org.ziglang.parsing.v1.ZigFile
+import org.ziglang.parsing.v1.psi.*
 
 fun PsiElement.presentText(): String = when (this) {
     is ZigFile -> name

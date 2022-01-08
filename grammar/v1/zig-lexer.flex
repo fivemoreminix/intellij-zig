@@ -1,10 +1,10 @@
-package org.ziglang;
+package org.ziglang.parsing.v1;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.TokenType;
-import org.ziglang.psi.ZigTypes;
-import org.ziglang.ZigTokenType;
+import org.ziglang.parsing.v1.psi.ZigTypes;
+import org.ziglang.parsing.v1.ZigTokenType;
 
 %%
 
@@ -41,6 +41,8 @@ SYMBOL={SYMBOL_CHAR}({SYMBOL_CHAR}|\d)*
 
 INCOMPLETE_STRING=c?\"([^\"\\\n]|\\[^])*
 STRING_LITERAL={INCOMPLETE_STRING}\"
+
+STRING_MULTILINE=("\\\\" [^\n]* [ \n]*)+
 
 INCOMPLETE_CHAR='([^'\\\n]|\\[^])*
 CHAR_LITERAL={INCOMPLETE_CHAR}'
@@ -126,57 +128,69 @@ CHAR_LITERAL={INCOMPLETE_CHAR}'
 {CHAR_LITERAL} { return ZigTypes.CHAR_LITERAL; }
 {INCOMPLETE_CHAR} { return TokenType.BAD_CHARACTER; }
 
-test { return ZigTypes.TEST_KEYWORD; }
-pub { return ZigTypes.PUB_KEYWORD; }
-export { return ZigTypes.EXPORT_KEYWORD; }
-switch { return ZigTypes.SWITCH_KEYWORD; }
-comptime { return ZigTypes.COMPTIME_KEYWORD; }
-const { return ZigTypes.CONST_KEYWORD; }
-var { return ZigTypes.VAR_KEYWORD; }
+{STRING_MULTILINE} { return ZigTypes.STR_MULTILINE; }
+
 align { return ZigTypes.ALIGN_KEYWORD; }
-for { return ZigTypes.FOR_KEYWORD; }
-section { return ZigTypes.SECTION_KEYWORD; }
-use { return ZigTypes.USE_KEYWORD; }
-extern { return ZigTypes.EXTERN_KEYWORD; }
-nakedcc { return ZigTypes.NAKEDCC_KEYWORD; }
-stdcallcc { return ZigTypes.STDCALLCC_KEYWORD; }
-orelse { return ZigTypes.ORELSE_KEYWORD; }
-async { return ZigTypes.ASYNC_KEYWORD; }
-fn { return ZigTypes.FN_KEYWORD; }
-section { return ZigTypes.SECTION_KEYWORD; }
-align { return ZigTypes.ALIGN_KEYWORD; }
-inline { return ZigTypes.INLINE_KEYWORD; }
-comptime { return ZigTypes.COMPTIME_KEYWORD; }
-noalias { return ZigTypes.NOALIAS_KEYWORD; }
+allowzero { return ZigTypes.ALLOWZERO_KEYWORD; } // new
+and { return ZigTypes.AND_KEYWORD; }
+anyframe { return ZigTypes.ANYFRAME_KEYWORD; } // new
+anytype { return ZigTypes.ANYTYPE_KEYWORD; } // new
 asm { return ZigTypes.ASM_KEYWORD; }
-volatile { return ZigTypes.VOLATILE_KEYWORD; }
-return { return ZigTypes.RETURN_KEYWORD; }
-try { return ZigTypes.TRY_KEYWORD; }
+async { return ZigTypes.ASYNC_KEYWORD; }
 await { return ZigTypes.AWAIT_KEYWORD; }
 break { return ZigTypes.BREAK_KEYWORD; }
-cancel { return ZigTypes.CANCEL_KEYWORD; }
-resume { return ZigTypes.RESUME_KEYWORD; }
+callconv { return ZigTypes.CALLCONV_KEYWORD; } // new
 catch { return ZigTypes.CATCH_KEYWORD; }
-defer { return ZigTypes.DEFER_KEYWORD; }
-errdefer { return ZigTypes.DEFERROR_KEYWORD; }
-true { return ZigTypes.TRUE_KEYWORD; }
-false { return ZigTypes.FALSE_KEYWORD; }
-null { return ZigTypes.NULL_KEYWORD; }
-enum { return ZigTypes.ENUM_KEYWORD; }
+comptime { return ZigTypes.COMPTIME_KEYWORD; }
+const { return ZigTypes.CONST_KEYWORD; }
 continue { return ZigTypes.CONTINUE_KEYWORD; }
-and { return ZigTypes.AND_KEYWORD; }
-or { return ZigTypes.OR_KEYWORD; }
-if { return ZigTypes.IF_KEYWORD; }
+defer { return ZigTypes.DEFER_KEYWORD; }
 else { return ZigTypes.ELSE_KEYWORD; }
-while { return ZigTypes.WHILE_KEYWORD; }
-suspend { return ZigTypes.SUSPEND_KEYWORD; }
-this { return ZigTypes.THIS_KEYWORD; }
+enum { return ZigTypes.ENUM_KEYWORD; }
+errdefer { return ZigTypes.DEFERROR_KEYWORD; }
 error { return ZigTypes.ERROR_KEYWORD; }
-undefined { return ZigTypes.UNDEFINED_KEYWORD; }
-unreachable { return ZigTypes.UNREACHABLE_KEYWORD; }
+export { return ZigTypes.EXPORT_KEYWORD; }
+extern { return ZigTypes.EXTERN_KEYWORD; }
+fn { return ZigTypes.FN_KEYWORD; }
+for { return ZigTypes.FOR_KEYWORD; }
+if { return ZigTypes.IF_KEYWORD; }
+inline { return ZigTypes.INLINE_KEYWORD; }
+linksection { return ZigTypes.LINKSECTION_KEYWORD; } // new
+noalias { return ZigTypes.NOALIAS_KEYWORD; } // new
+nosuspend { return ZigTypes.NOSUSPEND_KEYWORD; } // new
+noinline { return ZigTypes.NOINLINE_KEYWORD; } // new
+opaque { return ZigTypes.OPAQUE_KEYWORD; } // new
+or { return ZigTypes.OR_KEYWORD; }
+orelse { return ZigTypes.ORELSE_KEYWORD; }
 packed { return ZigTypes.PACKED_KEYWORD; }
+pub { return ZigTypes.PUB_KEYWORD; }
+resume { return ZigTypes.RESUME_KEYWORD; }
+return { return ZigTypes.RETURN_KEYWORD; }
 struct { return ZigTypes.STRUCT_KEYWORD; }
+suspend { return ZigTypes.SUSPEND_KEYWORD; }
+switch { return ZigTypes.SWITCH_KEYWORD; }
+test { return ZigTypes.TEST_KEYWORD; }
+threadlocal { return ZigTypes.THREADLOCAL_KEYWORD; } // new
+try { return ZigTypes.TRY_KEYWORD; }
 union { return ZigTypes.UNION_KEYWORD; }
+unreachable { return ZigTypes.UNREACHABLE_KEYWORD; }
+usingnamespace { return ZigTypes.USINGNAMESPACE_KEYWORD; } // new
+var { return ZigTypes.VAR_KEYWORD; }
+volatile { return ZigTypes.VOLATILE_KEYWORD; }
+while { return ZigTypes.WHILE_KEYWORD; }
+
+section { return ZigTypes.SECTION_KEYWORD; }
+use { return ZigTypes.USE_KEYWORD; }
+nakedcc { return ZigTypes.NAKEDCC_KEYWORD; }
+stdcallcc { return ZigTypes.STDCALLCC_KEYWORD; }
+section { return ZigTypes.SECTION_KEYWORD; }
+cancel { return ZigTypes.CANCEL_KEYWORD; }
+this { return ZigTypes.THIS_KEYWORD; }
+
+false { return ZigTypes.FALSE_KEYWORD; }
+true { return ZigTypes.TRUE_KEYWORD; }
+null { return ZigTypes.NULL_KEYWORD; }
+undefined { return ZigTypes.UNDEFINED_KEYWORD; }
 
 {SYMBOL} { return ZigTypes.SYM; }
 {INTEGER} { return ZigTypes.INT_LITERAL; }

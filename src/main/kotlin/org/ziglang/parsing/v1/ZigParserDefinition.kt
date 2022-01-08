@@ -1,19 +1,15 @@
-package org.ziglang
+package org.ziglang.parsing.v1
 
 import com.intellij.lang.ASTNode
 import com.intellij.lang.ParserDefinition
-import com.intellij.lexer.FlexAdapter
 import com.intellij.openapi.project.Project
 import com.intellij.psi.FileViewProvider
 import com.intellij.psi.PsiElement
-import com.intellij.psi.PsiErrorElement
-import com.intellij.psi.PsiFileFactory
-import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
-import org.ziglang.psi.ZigTypes
-
-class ZigLexerAdapter : FlexAdapter(ZigLexer())
+import org.ziglang.ZigLanguage
+import org.ziglang.parsing.v1.psi.ZigTypes
+import org.ziglang.v1.ZigParser
 
 class ZigParserDefinition : ParserDefinition {
     override fun createParser(project: Project?) = ZigParser()
@@ -31,24 +27,3 @@ class ZigParserDefinition : ParserDefinition {
         private val FILE = IFileElementType(ZigLanguage.INSTANCE)
     }
 }
-
-class ZigTokenType(debugName: String) : IElementType(debugName, ZigLanguage.INSTANCE) {
-    companion object TokenHolder {
-        @JvmField
-        val LINE_COMMENT = ZigTokenType("comment")
-        @JvmField
-        val COMMENTS = TokenSet.create(LINE_COMMENT)
-        @JvmField
-        val STRINGS = TokenSet.create(ZigTypes.STR)
-        @JvmField
-        val IDENTIFIERS = TokenSet.create(ZigTypes.SYM, ZigTypes.SYMBOL)
-
-        fun fromText(string: String, project: Project): PsiElement = PsiFileFactory
-            .getInstance(project)
-            .createFileFromText(ZigLanguage.INSTANCE, string)
-            .firstChild
-            .let { (it as? PsiErrorElement)?.firstChild ?: it }
-    }
-}
-
-class ZigElementType(debugName: String) : IElementType(debugName, ZigLanguage.INSTANCE)

@@ -5,7 +5,7 @@ import com.intellij.ide.structureView.StructureViewModelBase
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiFile
-import org.ziglang.psi.*
+import org.ziglang.parsing.v1.psi.*
 
 class ZigStructureViewModel(root: PsiFile, editor: Editor?) :
     StructureViewModelBase(root, editor, ZigStructureViewElement(root)),

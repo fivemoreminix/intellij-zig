@@ -14,7 +14,7 @@
         <colorSettingsPage implementation="org.ziglang.highlight.ZigColorSettingsPage"/>
         <errorHandler implementation="org.ziglang.error.GitHubErrorReporter"/>
         <sdkType implementation="org.ziglang.project.ZigSdkType"/>
-        <fileType name="Zig" implementationClass="org.ziglang.ZigFileType" fieldName="INSTANCE" language="Zig"
+        <fileType name="Zig" implementationClass="org.ziglang.parsing.ZigFileType" fieldName="INSTANCE" language="Zig"
                   extensions="zig"/>
 
         <!-- Live templates -->
@@ -27,7 +27,7 @@
         <consoleFilterProvider implementation="org.ziglang.execution.ZigConsoleFilterProvider"/>
         <breadcrumbsInfoProvider implementation="org.ziglang.editing.ZigBreadcrumbsProvider"/>
         <lang.findUsagesProvider language="Zig" implementationClass="org.ziglang.editing.ZigFindUsagesProvider"/>
-        <lang.elementManipulator implementationClass="org.ziglang.psi.ZigStringManipulator"
+        <lang.elementManipulator implementationClass="org.ziglang.parsing.v1.psi.ZigStringManipulator"
                                  forClass="org.ziglang.psi.ZigString"/>
         <projectConfigurable groupId="language" instance="org.ziglang.project.ui.ZigConfigurableImpl"/>
         <projectService serviceInterface="org.ziglang.project.ZigProjectService"
@@ -45,7 +45,7 @@
         <lang.braceMatcher language="Zig" implementationClass="org.ziglang.editing.ZigBraceMatcher"/>
         <lang.commenter language="Zig" implementationClass="org.ziglang.editing.ZigCommenter"/>
         <lang.syntaxHighlighterFactory language="Zig" implementationClass="org.ziglang.highlight.ZigSyntaxHighlighterFactory"/>
-        <lang.parserDefinition language="Zig" implementationClass="org.ziglang.ZigParserDefinition"/>
+        <lang.parserDefinition language="Zig" implementationClass="org.ziglang.parsing.v1.ZigParserDefinition"/>
         <lang.foldingBuilder language="Zig" implementationClass="org.ziglang.editing.ZigFolderBuilder"/>
         <lang.psiStructureViewFactory language="Zig" implementationClass="org.ziglang.editing.ZigStructureViewFactory"/>
     </extensions>

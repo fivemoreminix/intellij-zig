@@ -4,7 +4,7 @@ import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory.createSingl
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory.createSingleFolderDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.TextBrowseFolderListener
-import org.ziglang.ZigFileType
+import org.ziglang.parsing.ZigFileType
 import org.ziglang.execution.ui.ZigRunConfigurationEditor
 import org.ziglang.project.initExeComboBox
 import org.ziglang.project.zigGlobalSettings

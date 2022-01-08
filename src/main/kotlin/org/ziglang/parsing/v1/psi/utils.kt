@@ -1,4 +1,4 @@
-package org.ziglang.psi
+package org.ziglang.parsing.v1.psi
 
 import com.intellij.openapi.progress.ProgressIndicatorProvider
 import com.intellij.psi.PsiElement

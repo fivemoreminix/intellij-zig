@@ -9,6 +9,7 @@ import com.intellij.util.ProcessingContext
 class ZigCompletionProvider(private val list: List<LookupElement>) : CompletionProvider<CompletionParameters>() {
     override fun addCompletions(
         parameters: CompletionParameters, context: ProcessingContext, result: CompletionResultSet
-    ) =
+    ) {
         list.forEach(result::addElement)
+    }
 }

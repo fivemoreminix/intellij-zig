@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement
 import org.ziglang.i18n.ZigBundle
 import org.ziglang.builtinFunctions
 import org.ziglang.icons.ZigIcons
-import org.ziglang.psi.ZigTypes
+import org.ziglang.parsing.v1.psi.ZigTypes
 
 class ZigCompletionContributor : CompletionContributor() {
     private companion object CompletionHolder {
