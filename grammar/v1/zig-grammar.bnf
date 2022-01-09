@@ -278,6 +278,7 @@ expr ::=
  | additionExpr
  | multiplyExpr
  | anonStructExpr
+ | structEnumAccessExpr
  | curlySuffixExpr
  | typeExpr
  | prefixOpExpr
@@ -323,6 +324,7 @@ bitShiftExpr ::= expr bitShiftOperator expr
 additionExpr ::= expr additionOperator expr
 multiplyExpr ::= expr multiplyOperator expr
 curlySuffixExpr ::= expr containerInitSuffix
+structEnumAccessExpr ::= DOT_SYM expr
 anonStructExpr ::= DOT_SYM containerInitSuffix // Anonymous struct: .{"world"}
 typeExpr ::= expr NOT_SYM expr
 prefixOpExpr ::= prefixOp expr
@@ -337,6 +339,7 @@ suffixOpExpr ::=
  | pointerSuffix
  | optionalSuffix
  )
+
 
 fieldAccessSuffix ::= DOT_SYM symbol
 pointerSuffix ::= DOT_SYM STAR_SYM

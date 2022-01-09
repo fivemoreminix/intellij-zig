@@ -25,24 +25,46 @@ WHITESPACE=[\s\n\f\r\t]+
 SEMICOLON=;
 COMMENT=\/\/[^\n]*
 
-NUM_SUFFIX=-?\d+
-P_SUFFIX=[pP]{NUM_SUFFIX}
-E_SUFFIX=[eE]{NUM_SUFFIX}
-HEXDIGIT=[a-fA-F0-9]
-HEX_NUM=0[xX]{HEXDIGIT}+({P_SUFFIX}|{E_SUFFIX})?
-OCT_NUM=0[oO][0-7]+
-BIN_NUM=0[bB][01]+
-DEC_NUM=\d+{E_SUFFIX}?
-INTEGER={HEX_NUM}|{OCT_NUM}|{BIN_NUM}|{DEC_NUM}
-FLOAT=((\d+\.\d*)|(\d*\.\d+))({E_SUFFIX}|{P_SUFFIX})?
+EOL=\R
+
+ascii_char_not_nl_slash_squote=[\000-\011\013-\046\050-\133\135-\177]
+
+ID=[A-Za-z_][A-Za-z0-9_]* | "@\"" {STRING_CHAR}* \"
+BUILTIN_IDENTIFIER="@"[A-Za-z_][A-Za-z0-9_]*
+CHAR_ESCAPE=\\x{hex}{hex}|\\u\{{hex}+}|\\[nrt\'\\\"]
+char_char=[a-zA-Z_\U0000A0-\U10ffff] | {CHAR_ESCAPE} | {ascii_char_not_nl_slash_squote}
+CHAR_LITERAL=\' {char_char} \'
+STRING_CHAR={CHAR_ESCAPE}|[^\"\n]
+STRING_LITERAL_SINGLE=\"{STRING_CHAR}*\"
+STRING_MULTILINE=(\\\\ [^\n]* [ \n]*)*
+
+bin= [01]
+hex = [0-9a-fA-F]
+bin_= '_'? {bin}
+oct = [0-7]
+oct_ = '_'? {oct}
+hex_ = '_'? {hex}
+dec = [0-9]
+dec_ = '_'? {dec}
+
+bin_int = [01] [01_]*
+oct_int = [0-7] [0-7_]*
+dec_int = [0-9] [0-9_]*
+hex_int = [0-9a-fA-F] [0-9a-fA-F_]*
+
+FLOAT=
+ "0x" {hex_int} "." {hex_int} ([pP] [-+]? {dec_int})?
+ | {dec_int} "." {dec_int} ([eE] [-+]? {dec_int})?
+ | "0x" {hex_int} [pP] [-+]? {dec_int}
+ | {dec_int} [eE] [-+]? {dec_int}
+
+INTEGER= "0b" {bin_int} | "0o" {oct_int} | "0x" {hex_int} | {dec_int}
 
 SYMBOL_CHAR=[a-zA-Z_] // TODO
 SYMBOL={SYMBOL_CHAR}({SYMBOL_CHAR}|\d)*
 
 INCOMPLETE_STRING=c?\"([^\"\\\n]|\\[^])*
 STRING_LITERAL={INCOMPLETE_STRING}\"
-
-STRING_MULTILINE=("\\\\" [^\n]* [ \n]*)+
 
 INCOMPLETE_CHAR='([^'\\\n]|\\[^])*
 CHAR_LITERAL={INCOMPLETE_CHAR}'

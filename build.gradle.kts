@@ -41,6 +41,8 @@ tasks {
 		kotlinOptions {
 			jvmTarget = "11"
 		}
+
+		dependsOn(generateLexer, generateParser)
 	}
 
 	compileTestKotlin {

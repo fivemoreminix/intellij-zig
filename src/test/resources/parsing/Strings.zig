@@ -22,5 +22,5 @@ fn main() i32 {
         \\Note that due to a bug in zig (https://github.com/ziglang/zig/issues/6044),
         \\your zig directory cannot contain the '/' character.
     else
-        "What is the path to the 'zig' executable you would like to use?"
+        "What is the path to the 'zig' executable you would like to use?";
 }
