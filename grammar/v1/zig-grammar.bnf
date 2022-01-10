@@ -1,5 +1,5 @@
 {
-  parserClass='org.ziglang.v1.ZigParser'
+  parserClass='org.ziglang.parsing.v1.ZigParser'
   extends='com.intellij.extapi.psi.ASTWrapperPsiElement'
   psiClassPrefix='Zig'
   psiImplClassSuffix='Impl'

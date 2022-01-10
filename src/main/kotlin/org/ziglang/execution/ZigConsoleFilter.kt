@@ -3,6 +3,7 @@ package org.ziglang.execution
 import com.intellij.execution.filters.Filter
 import com.intellij.execution.filters.OpenFileHyperlinkInfo
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.project.guessProjectDir
 import java.util.regex.Pattern
 
 class ZigConsoleFilter(private val project: Project) : Filter {
@@ -16,7 +17,7 @@ class ZigConsoleFilter(private val project: Project) : Filter {
         val matcher = ERROR_FILE_LOCATION.matcher(line)
         if (!matcher.lookingAt()) return null
         val resultFilePath = matcher.group(1)
-        val resultFile = project.baseDir.fileSystem.findFileByPath(resultFilePath) ?: return null
+        val resultFile = project.guessProjectDir()?.fileSystem?.findFileByPath(resultFilePath) ?: return null
         val lineNumber = matcher.group(2).toIntOrNull() ?: return null
         val columnNumber = matcher.group(3).toIntOrNull() ?: return null
         return Filter.Result(

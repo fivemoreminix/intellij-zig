@@ -13,8 +13,8 @@ class ZigRunLineMarkerContributor : RunLineMarkerContributor() {
 
         val actions = ExecutorAction.getActions(Integer.MAX_VALUE);
 
-        return Info(AllIcons.RunConfigurations.TestState.Run, actions) { element ->
-            actions.toList().map { action -> getText(action, element) }.joinToString(separator = "\n")
+        return Info(AllIcons.RunConfigurations.TestState.Run, actions) { e ->
+            actions.toList().map { action -> getText(action, e) }.joinToString(separator = "\n")
         }
     }
 }

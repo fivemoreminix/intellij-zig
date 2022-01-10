@@ -34,7 +34,7 @@ class ZigCommandLineState(
 
         val outputFile = Paths.get(configuration.outputDir, configuration.name).toString()
 
-        val buildParams = buildParams(outputFile)
+        val buildParams = buildParams()
         val buildHandler = OSProcessHandler(GeneralCommandLine(buildParams).withWorkDirectory(configuration.workingDir))
 
         val console = consoleBuilder.console
@@ -44,7 +44,6 @@ class ZigCommandLineState(
             buildHandler.addProcessListener(object : ProcessAdapter() {
                 override fun processTerminated(event: ProcessEvent) {
                     if (event.exitCode == 0) {
-//                        console.clear()
                         val params = mutableListOf<String>()
                         with(configuration) {
                             params += outputFile
@@ -68,7 +67,7 @@ class ZigCommandLineState(
         return DefaultExecutionResult(console, buildHandler, PauseOutputAction(console, buildHandler))
     }
 
-    private fun buildParams(outputFile: String): MutableList<String> {
+    private fun buildParams(): MutableList<String> {
         val buildParams = mutableListOf<String>()
         
         with(configuration) {

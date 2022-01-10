@@ -9,7 +9,6 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import org.ziglang.ZigLanguage
 import org.ziglang.parsing.v1.psi.ZigTypes
-import org.ziglang.v1.ZigParser
 
 class ZigParserDefinition : ParserDefinition {
     override fun createParser(project: Project?) = ZigParser()
