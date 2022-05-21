@@ -1,11 +1,11 @@
 group = "org.ziglang"
-version = "0.1.4-SNAPSHOT"
+version = "0.1.5"
 
 plugins {
 	java
 	idea
-	id("org.jetbrains.intellij") version "1.3.0"
-	id("org.jetbrains.grammarkit") version "2021.2.1"
+	id("org.jetbrains.intellij") version "1.5.3"
+	id("org.jetbrains.grammarkit") version "2021.2.2"
 	kotlin("jvm") version "1.6.0"
 }
 
